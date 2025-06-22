@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% if events %}
+        <h2>We have {{ events|length }} events in total.</h2>
+    {% else %}
+        <h2>No events so far.</h2>
+    {% endif %}
+
+    <section id="dashboard">
+        {% for event in events %}
+            {% include "_event_card.html" with event=event %}
+        {% endfor %}
+    </section>
+{% endblock %}

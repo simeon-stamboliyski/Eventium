@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="edit">
+
+    <div class="form">
+        <!-- Default image -->
+        <img class="dell-img" src="{% static 'images/del.png' %}" alt="Delete Icon" />
+        <h1>Do you want to delete your Organizer's Profile?</h1>
+        <p>*Note: If you have upcoming events, your profile will <strong>NOT</strong> be deleted!</p>
+
+        <form id="delete" class="register-form" method="post" action="{% url 'profile-delete' organizer.pk %}">
+            {% csrf_token %}
+            <button type="submit">Yes, delete it!</button>
+        </form>
+    </div>
+
+</section>
+{% endblock %}

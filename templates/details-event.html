@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Event Details -->
+<section id="details">
+    <div id="details-wrapper">
+        <h2>Event Details</h2>
+
+        <!-- Banner image or default -->
+        <img src="{% if event.banner_url %}{{ event.banner_url }}{% else %}{% static 'images/event-default-img.png' %}{% endif %}" alt="{{ event.slogan }} img" />
+
+        <!-- Slogan -->
+        <p id="details-title">
+            {{ event.slogan }}
+        </p>
+
+        <div id="info-wrapper">
+            <div id="details-description">
+                <!-- Start time -->
+                <p class="description">
+                    {{ event.start_time|date:"D d M Y H:i" }}
+                </p>
+
+                <!-- Location -->
+                <p class="description">
+                    {{ event.location }}
+                </p>
+
+                <!-- Available tickets -->
+                <p>
+                    {{ event.available_tickets }} available tickets
+                </p>
+
+                <!-- Key features, only if provided -->
+                {% if event.key_features %}
+                <p>
+                    <strong>Key features: </strong>{{ event.key_features }}
+                </p>
+                {% endif %}
+            </div>
+
+            <!-- Edit and Delete buttons -->
+            <div id="action-buttons">
+                <a href="{% url 'event-edit' event.pk %}" id="edit-btn">Edit</a>
+                <a href="{% url 'event-delete' event.pk %}" id="delete-btn">Delete</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% load static %}
+
+<div class="post">
+    <h3 class="title">{{ event.slogan|truncatechars:20 }}</h3>
+    <img src="{% if event.banner_url %}{{ event.banner_url }}{% else %}{% static 'images/event-default-img.png' %}{% endif %}" alt="{{ event.slogan }} img" />
+    <p class="description">{{ event.start_time|date:"D d M Y H:i" }}</p>
+    <p class="description">{{ event.location }}</p>
+    <a class="details-btn" href="{% url 'event-details' event.pk %}">Click for more</a>
+</div>

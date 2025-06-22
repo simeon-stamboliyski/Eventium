@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section id="edit">
+    <div class="form">
+        <h2>Edit Event</h2>
+        <form class="edit-form" method="post" action="{% url 'event-edit' event.pk %}">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_slogan">Slogan:</label>
+                <input type="text" name="slogan"
+                       value="{{ posted.slogan|default:event.slogan }}" maxlength="120" required id="id_slogan" />
+                {% if errors.slogan %}
+                <p class="error">{{ errors.slogan }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_location">Location:</label>
+                <input type="text" name="location"
+                       value="{{ posted.location|default:event.location }}" maxlength="120" required id="id_location" />
+                {% if errors.location %}
+                <p class="error">{{ errors.location }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_start_time">Event Date/Time:</label>
+                <input type="datetime-local" name="start_time"
+                       value="{{ posted.start_time|default:event.start_time|date:'Y-m-d\\TH:i' }}" required id="id_start_time" />
+                {% if errors.start_time %}
+                <p class="error">{{ errors.start_time }}</p>
+                {% endif %}
+                <input type="hidden" name="initial-start_time"
+                       value="{{ event.start_time|date:'Y-m-d\\TH:i' }}" id="initial-id_start_time" />
+            </div>
+
+            <div>
+                <label for="id_available_tickets">Available Tickets:</label>
+                <input type="number" name="available_tickets"
+                       value="{{ posted.available_tickets|default:event.available_tickets }}" min="0" required id="id_available_tickets" />
+                {% if errors.available_tickets %}
+                <p class="error">{{ errors.available_tickets }}</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_key_features">Event Key Features:</label>
+                <textarea name="key_features" cols="40" rows="10" id="id_key_features">{{ posted.key_features|default:event.key_features }}</textarea>
+            </div>
+
+            <div>
+                <label for="id_banner_url">Event Banner URL:</label>
+                <input type="url" name="banner_url" value="{{ event.banner_url|default_if_none:'' }}" maxlength="200" id="id_banner_url" />
+                {% if errors.banner_url %}
+                <p class="error">{{ errors.banner_url }}</p>
+                {% endif %}
+            </div>
+
+            <button type="submit">Edit</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

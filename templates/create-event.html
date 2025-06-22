@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="create">
+    <div class="form">
+        <h2>New Event</h2>
+        <form class="create-form" method="post" action="">
+            {% csrf_token %}
+
+            <div>
+                {{ form.slogan.label_tag }}
+                {{ form.slogan }}
+                {{ form.slogan.errors }}
+            </div>
+
+            <div>
+                {{ form.location.label_tag }}
+                {{ form.location }}
+                {{ form.location.errors }}
+            </div>
+
+            <div>
+                {{ form.start_time.label_tag }}
+                {{ form.start_time }}
+                {{ form.start_time.errors }}
+            </div>
+
+            <div>
+                {{ form.available_tickets.label_tag }}
+                {{ form.available_tickets }}
+                {{ form.available_tickets.errors }}
+            </div>
+
+            <div>
+                {{ form.key_features.label_tag }}
+                {{ form.key_features }}
+                {{ form.key_features.errors }}
+            </div>
+
+            <div>
+                {{ form.banner_url.label_tag }}
+                {{ form.banner_url }}
+                {{ form.banner_url.errors }}
+            </div>
+
+            <button type="submit">Create Event</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="edit">
+    <div class="form">
+        <h2>Delete Event</h2>
+        <form class="edit-form" method="post" action="{% url 'event-delete' event.pk %}">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_slogan">Slogan:</label>
+                <input type="text" name="slogan" value="{{ event.slogan }}" readonly id="id_slogan">
+            </div>
+
+            <div>
+                <label for="id_location">Location:</label>
+                <input type="text" name="location" value="{{ event.location }}" readonly id="id_location">
+            </div>
+
+            <div>
+                <label for="id_start_time">Event Date/Time:</label>
+                <input type="datetime-local" name="start_time"
+                       value="{{ event.start_time|date:'Y-m-d\\TH:i' }}"
+                       readonly id="id_start_time">
+            </div>
+
+            <div>
+                <label for="id_available_tickets">Available Tickets:</label>
+                <input type="number" name="available_tickets" value="{{ event.available_tickets }}"
+                       readonly id="id_available_tickets">
+            </div>
+
+            <div>
+                <label for="id_key_features">Event Key Features:</label>
+                <textarea name="key_features" cols="40" rows="10" readonly id="id_key_features">{{ event.key_features }}</textarea>
+            </div>
+
+            <div>
+                <label for="id_banner_url">Event Banner URL:</label>
+                <input type="url" name="banner_url"
+                       value="{{ event.banner_url|default_if_none:'' }}"
+                       readonly id="id_banner_url">
+            </div>
+
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

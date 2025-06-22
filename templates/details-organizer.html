@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="details">
+    <div id="details-wrapper">
+        <!-- Company name -->
+        <h2>{{ organizer.company_name }}</h2>
+
+        <!-- Profile picture -->
+        <img id="details-img" src="{% static 'images/organizer-default.png' %}" alt="profile img" />
+
+        <!-- Phone number -->
+        <p id="nutrition"><span>Phone: </span>{{ organizer.phone_number }}</p>
+
+        <!-- Website if provided -->
+        {% if organizer.website %}
+        <p id="nutrition"><span>Website: </span><a href="{{ organizer.website }}" target="_blank">{{ organizer.website }}</a></p>
+        {% endif %}
+
+        {% if organizer.upcoming_events %}
+        <div id="info-wrapper">
+            <div id="details-description">
+                <p><span>Upcoming Events:</span></p>
+                <ul>
+                    {% for event in organizer.upcoming_events %}
+                    <li>{{ event.start_time|date:"Y-m-d H:i" }} {{ event.slogan }} @ {{ event.location }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Edit and Delete buttons -->
+            <div id="action-buttons">
+                <a href="{% url 'profile-edit' organizer.pk %}" id="edit-btn">Edit</a>
+                <a href="{% url 'profile-delete' organizer.pk %}" id="delete-btn">Delete</a>
+            </div>
+        </div>
+        {% else %}
+        <p>No upcoming events.</p>
+        <div id="action-buttons">
+            <a href="{% url 'profile-edit' organizer.pk %}" id="edit-btn">Edit</a>
+            <a href="{% url 'profile-delete' organizer.pk %}" id="delete-btn">Delete</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

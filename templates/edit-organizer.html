@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section id="register">
+    <div class="form">
+        <h2>Edit Organizer's Profile</h2>
+        <form class="register-form" method="post" action="{% url 'profile-edit' organizer.pk %}">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_company_name">Company Name:</label>
+                <div class="helptext" id="id_company_name_helptext">
+                    *Allowed names contain letters, digits, spaces, and hyphens.
+                </div>
+                <input type="text" name="company_name" value="{{ organizer.company_name|default_if_none:'' }}"
+                       maxlength="110" required aria-describedby="id_company_name_helptext" id="id_company_name" />
+                {% if errors.company_name %}
+                    <div class="error">{{ errors.company_name.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_phone_number">Phone Number:</label>
+                <input type="text" name="phone_number" value="{{ organizer.phone_number|default_if_none:'' }}"
+                       maxlength="15" required id="id_phone_number" />
+                {% if errors.phone_number %}
+                    <div class="error">{{ errors.phone_number.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="id_website">Website:</label>
+                <input type="url" name="website" value="{{ organizer.website|default_if_none:'' }}"
+                       maxlength="200" id="id_website" />
+                {% if errors.website %}
+                    <div class="error">{{ errors.website.0 }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit">Edit</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
